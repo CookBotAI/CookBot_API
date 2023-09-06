@@ -40,12 +40,13 @@ app.post('/recipes', async (request, response) => {
   try {
     console.log('POST request: ', request.body);
     let ingredients = request.body.ingredients;
+    console.log(ingredients.length);
     if (!ingredients.length) {
       response.status(400).send('Please send valid food ingredients');
     } else {
       let recipeRequest = {
-        "model": "gpt-3.5-turbo",
-        "messages": [{
+        model: "gpt-3.5-turbo",
+        messages: [{
           "role": "user",
           "content": `I will give you a list of food ingredients. If one of the ingredients is not a food item, provide a response starting with the text Error. If all ingredients are food items, please provide a food fish that uses these ingredients: ${ingredients}. Provide your response in a json object with the following properties: dishName, ingredients, cookingSteps, cookingDuration, countryOfOrigin.`
         }]
